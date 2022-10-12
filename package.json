@@ -1,0 +1,20 @@
+{
+  "name": "from-the-start",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fabian295/from-the-start_react-stand-alone-babel-no_react-create-app.git"
+  },
+  "keywords": [],
+  "author": "Fabian Kanhai <fabiankanhai70@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Fabian295/from-the-start_react-stand-alone-babel-no_react-create-app/issues"
+  },
+  "homepage": "https://github.com/Fabian295/from-the-start_react-stand-alone-babel-no_react-create-app#readme"
+}
