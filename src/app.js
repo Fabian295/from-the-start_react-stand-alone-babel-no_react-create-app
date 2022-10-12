@@ -28,7 +28,7 @@ class Hello extends React.Component {
   }
 }
 
-const Nav = () => {
+const Nav = (props) => {
 //  const {Link} = React;
   return (
     <div>
@@ -37,6 +37,12 @@ const Nav = () => {
       <li>Link 2</li>
       <li>Link 3</li>
 
+    <p>
+      { props.routerText }
+    </p>
+    <p>
+      { props.lib }
+    </p>
     </ul>
   </div>
   )
@@ -45,5 +51,5 @@ const Nav = () => {
 const DOMContainer = document.getElementById('app');
 const root = ReactDOM.createRoot(DOMContainer);
 // root.render(template )
-root.render(<Hello french='Bonjour Tout le Monde!' english='Hello Chaps!' /> )
-// root.render(<Nav/> )
+// root.render(<Hello french='Bonjour Tout le Monde!' english='Hello Chaps!' /> )
+root.render(<Nav routerText="Link is part of react-router" lib="Part of react for navigation" /> )

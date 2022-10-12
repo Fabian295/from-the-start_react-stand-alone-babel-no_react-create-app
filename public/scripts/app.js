@@ -32,15 +32,15 @@ var Hello = /*#__PURE__*/function (_React$Component) {
   }]);
   return Hello;
 }(React.Component);
-var Nav = function Nav() {
+var Nav = function Nav(props) {
   //  const {Link} = React;
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Link 1 "), /*#__PURE__*/React.createElement("li", null, "Link 2"), /*#__PURE__*/React.createElement("li", null, "Link 3")));
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Link 1 "), /*#__PURE__*/React.createElement("li", null, "Link 2"), /*#__PURE__*/React.createElement("li", null, "Link 3"), /*#__PURE__*/React.createElement("p", null, props.routerText), /*#__PURE__*/React.createElement("p", null, props.lib)));
 };
 var DOMContainer = document.getElementById('app');
 var root = ReactDOM.createRoot(DOMContainer);
 // root.render(template )
-root.render( /*#__PURE__*/React.createElement(Hello, {
-  french: "Bonjour Tout le Monde!",
-  english: "Hello Chaps!"
+// root.render(<Hello french='Bonjour Tout le Monde!' english='Hello Chaps!' /> )
+root.render( /*#__PURE__*/React.createElement(Nav, {
+  routerText: "Link is part of react-router",
+  lib: "Part of react for navigation"
 }));
-// root.render(<Nav/> )
