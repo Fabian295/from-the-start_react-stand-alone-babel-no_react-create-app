@@ -39,12 +39,43 @@ var Nav = function Nav(_ref) {
   //  const {Link} = React;
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Link 1 "), /*#__PURE__*/React.createElement("li", null, "Link 2"), /*#__PURE__*/React.createElement("li", null, "Link 3"), /*#__PURE__*/React.createElement("p", null, routerText), /*#__PURE__*/React.createElement("p", null, lib), /*#__PURE__*/React.createElement("p", null, "Or with destructuring,", text, " ")));
 };
+var Checkbox = /*#__PURE__*/function (_React$Component2) {
+  _inherits(Checkbox, _React$Component2);
+  var _super2 = _createSuper(Checkbox);
+  function Checkbox(props) {
+    var _this;
+    _classCallCheck(this, Checkbox);
+    _this = _super2.call(this, props);
+    _this.state = {
+      checked: false
+    };
+    var msg = '';
+    _this.handleChecked = _this.handleChecked.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(Checkbox, [{
+    key: "handleChecked",
+    value: function handleChecked() {
+      this.setState({
+        checked: !this.state.checked
+      });
+      console.log(this.state.checked);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var msg = '';
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("input", {
+        onChange: this.handleChecked,
+        type: "checkbox"
+      }), /*#__PURE__*/React.createElement("p", null, "Checkbox is ", this.msg, this.state.checked === true ? msg = 'Checked' : msg = 'NOT Checked'));
+    }
+  }]);
+  return Checkbox;
+}(React.Component);
 var DOMContainer = document.getElementById('app');
 var root = ReactDOM.createRoot(DOMContainer);
 // root.render(template )
 // root.render(<Hello french='Bonjour Tout le Monde!' english='Hello Chaps!' /> )
-root.render( /*#__PURE__*/React.createElement(Nav, {
-  text: "without the props. notation",
-  routerText: "Link is part of react-router",
-  lib: "Part of react for navigation"
-}));
+// root.render(<Nav text="without the props. notation" routerText="Link is part of react-router" lib="Part of react for navigation" /> )
+root.render( /*#__PURE__*/React.createElement(Checkbox, null));

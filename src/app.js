@@ -49,8 +49,41 @@ const Nav = ( { routerText, lib, text }) => {
   )
 }
 
+class Checkbox extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      checked: false
+    }
+    const msg ='';
+    this.handleChecked = this.handleChecked.bind(this);
+  }
+
+  handleChecked() {
+    this.setState({
+      checked: !this.state.checked
+    });
+
+    console.log(this.state.checked)
+  }
+
+  render() {
+    let msg='';
+    return (
+     
+      <div>
+        <input onChange={ this.handleChecked } type="checkbox" />
+          <p>Checkbox is { this.msg }
+           {this.state.checked === true ? msg = 'Checked' : msg = 'NOT Checked'}
+          </p>
+      </div>
+    )
+  }
+}
+
 const DOMContainer = document.getElementById('app');
 const root = ReactDOM.createRoot(DOMContainer);
 // root.render(template )
 // root.render(<Hello french='Bonjour Tout le Monde!' english='Hello Chaps!' /> )
-root.render(<Nav text="without the props. notation" routerText="Link is part of react-router" lib="Part of react for navigation" /> )
+// root.render(<Nav text="without the props. notation" routerText="Link is part of react-router" lib="Part of react for navigation" /> )
+root.render(<Checkbox /> )
