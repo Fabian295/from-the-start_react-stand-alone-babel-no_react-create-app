@@ -81,9 +81,105 @@ class Checkbox extends React.Component {
   }
 }
 
+/******************************************
+ * A pre structure for the real 
+ * BucketList application 
+ ******************************************/
+
+const app = {
+  title: 'The Bucket List',
+  subTitle: 'Decide what to do next!',
+  options: [],
+}
+
+//  if(app.options.length > 0 ){
+//  }
+
+const onFormSubmit = (e) => {
+  e.preventDefault();
+
+  // const option = e.target.elements[0].value;
+  const option = e.target.elements.option.value;
+  if(option)
+  app.options.push(option);
+  console.log(app.options);
+  console.log(e.target.elements.option.value);
+  // e.target.elements[0].value = '';
+  e.target.elements.option.value = '';
+  render();
+}
+
+const handleInput = (e) => {
+  console.log(e.target.value)
+}
+
+const removeAll = (e) => {
+  console.log('remove all!')
+  console.log(app.options)
+  app.options = [];
+  render();
+  console.log(app.options)
+}
+
+const onRandomDecision = (e) => {
+  e.preventDefault()
+
+  const rand = (Math.floor(Math.random() * app.options.length) )  ;
+  let num = (rand + 1)
+  console.log(rand)
+  const option = app.options[rand] 
+  const option2 = app.options[num] 
+  console.log(option)
+  // console.log(option2)
+  // render()
+  alert(option)
+}
+
+
 const DOMContainer = document.getElementById('app');
 const root = ReactDOM.createRoot(DOMContainer);
+const render = () => {
+  const setup = (
+  
+    <div>
+      <h2>{app.title}</h2>
+  
+      { app.subTitle && <p>{app.subTitle}</p> }
+  
+      <div>
+        {  (app.options.length > 0 ? 'Your Options'  : 'No Options')  }
+      </div>
+  
+      <p>{ app.options.length }</p>
+      <ol>
+        { app.options.map((option, index) => {
+            return <li key={index}> { option } </li>
+            }) 
+            
+           }
+        </ol>
+      <p>
+        <button onClick={ removeAll } >Remove All Options</button>
+      </p>
+      
+      <form onSubmit={onFormSubmit}>
+  
+        <input type="text" 
+        name="option" 
+        // onChange={ handleInput } 
+        />
+        <button >Add Option</button>
+       <button  onClick={onRandomDecision} >What should I do?</button>
+      </form>
+    </div>
+  );
+  
+  root.render(setup )
+}
+
+render();
+
 // root.render(template )
 // root.render(<Hello french='Bonjour Tout le Monde!' english='Hello Chaps!' /> )
 // root.render(<Nav text="without the props. notation" routerText="Link is part of react-router" lib="Part of react for navigation" /> )
-root.render(<Checkbox /> )
+// root.render(<Checkbox /> )

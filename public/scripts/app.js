@@ -72,10 +72,76 @@ var Checkbox = /*#__PURE__*/function (_React$Component2) {
     }
   }]);
   return Checkbox;
-}(React.Component);
+}(React.Component); /******************************************
+                     * A pre structure for the real 
+                     * BucketList application 
+                     ******************************************/
+var app = {
+  title: 'The Bucket List',
+  subTitle: 'Decide what to do next!',
+  options: []
+};
+
+//  if(app.options.length > 0 ){
+//  }
+
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
+
+  // const option = e.target.elements[0].value;
+  var option = e.target.elements.option.value;
+  if (option) app.options.push(option);
+  console.log(app.options);
+  console.log(e.target.elements.option.value);
+  // e.target.elements[0].value = '';
+  e.target.elements.option.value = '';
+  render();
+};
+var handleInput = function handleInput(e) {
+  console.log(e.target.value);
+};
+var removeAll = function removeAll(e) {
+  console.log('remove all!');
+  console.log(app.options);
+  app.options = [];
+  render();
+  console.log(app.options);
+};
+var onRandomDecision = function onRandomDecision(e) {
+  e.preventDefault();
+  var rand = Math.floor(Math.random() * app.options.length);
+  var num = rand + 1;
+  console.log(rand);
+  var option = app.options[rand];
+  var option2 = app.options[num];
+  console.log(option);
+  // console.log(option2)
+  // render()
+  alert(option);
+};
 var DOMContainer = document.getElementById('app');
 var root = ReactDOM.createRoot(DOMContainer);
+var render = function render() {
+  var setup = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, app.title), app.subTitle && /*#__PURE__*/React.createElement("p", null, app.subTitle), /*#__PURE__*/React.createElement("div", null, app.options.length > 0 ? 'Your Options' : 'No Options'), /*#__PURE__*/React.createElement("p", null, app.options.length), /*#__PURE__*/React.createElement("ol", null, app.options.map(function (option, index) {
+    return /*#__PURE__*/React.createElement("li", {
+      key: index
+    }, " ", option, " ");
+  })), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+    onClick: removeAll
+  }, "Remove All Options")), /*#__PURE__*/React.createElement("form", {
+    onSubmit: onFormSubmit
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    name: "option"
+    // onChange={ handleInput } 
+  }), /*#__PURE__*/React.createElement("button", null, "Add Option"), /*#__PURE__*/React.createElement("button", {
+    onClick: onRandomDecision
+  }, "What should I do?")));
+  root.render(setup);
+};
+render();
+
 // root.render(template )
 // root.render(<Hello french='Bonjour Tout le Monde!' english='Hello Chaps!' /> )
 // root.render(<Nav text="without the props. notation" routerText="Link is part of react-router" lib="Part of react for navigation" /> )
-root.render( /*#__PURE__*/React.createElement(Checkbox, null));
+// root.render(<Checkbox /> )
