@@ -27,6 +27,66 @@ var Header = /*#__PURE__*/function (_React$Component) {
   }]);
   return Header;
 }(React.Component);
+var Action = /*#__PURE__*/function (_React$Component2) {
+  _inherits(Action, _React$Component2);
+  var _super2 = _createSuper(Action);
+  function Action() {
+    _classCallCheck(this, Action);
+    return _super2.apply(this, arguments);
+  }
+  _createClass(Action, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", null, "What Should I Do?"));
+    }
+  }]);
+  return Action;
+}(React.Component);
+var Options = /*#__PURE__*/function (_React$Component3) {
+  _inherits(Options, _React$Component3);
+  var _super3 = _createSuper(Options);
+  function Options() {
+    _classCallCheck(this, Options);
+    return _super3.apply(this, arguments);
+  }
+  _createClass(Options, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", null, "What Should I Do?"));
+    }
+  }]);
+  return Options;
+}(React.Component);
+var Option = /*#__PURE__*/function (_React$Component4) {
+  _inherits(Option, _React$Component4);
+  var _super4 = _createSuper(Option);
+  function Option() {
+    _classCallCheck(this, Option);
+    return _super4.apply(this, arguments);
+  }
+  _createClass(Option, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, "Option Component"));
+    }
+  }]);
+  return Option;
+}(React.Component);
+var AddOption = /*#__PURE__*/function (_React$Component5) {
+  _inherits(AddOption, _React$Component5);
+  var _super5 = _createSuper(AddOption);
+  function AddOption() {
+    _classCallCheck(this, AddOption);
+    return _super5.apply(this, arguments);
+  }
+  _createClass(AddOption, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, "AddOption Component here");
+    }
+  }]);
+  return AddOption;
+}(React.Component);
 var DOMContainer = document.getElementById('app');
 var root = ReactDOM.createRoot(DOMContainer);
 root.render( /*#__PURE__*/React.createElement(Header, null));
