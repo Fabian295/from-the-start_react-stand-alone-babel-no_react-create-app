@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node_modules/live-server/live-server.js  ./public/",
-    "build": "babel src/app.js --out-file public/scripts/app.js --watch"
+    "build": "babel src/app.js --out-file public/scripts/app.js --watch",
+    "fun": "babel src/fun/toggle.js --out-file public/scripts/app.js --watch"
   },
   "repository": {
     "type": "git",
