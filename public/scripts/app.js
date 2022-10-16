@@ -11,82 +11,70 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-console.log('new live!');
-var Header = /*#__PURE__*/function (_React$Component) {
-  _inherits(Header, _React$Component);
-  var _super = _createSuper(Header);
-  function Header() {
-    _classCallCheck(this, Header);
-    return _super.apply(this, arguments);
+var Counter = /*#__PURE__*/function (_React$Component) {
+  _inherits(Counter, _React$Component);
+  var _super = _createSuper(Counter);
+  function Counter(props) {
+    var _this;
+    _classCallCheck(this, Counter);
+    _this = _super.call(this, props);
+    _this.handleAdd = _this.handleAdd.bind(_assertThisInitialized(_this));
+    _this.handleMinus = _this.handleMinus.bind(_assertThisInitialized(_this));
+    _this.handleReset = _this.handleReset.bind(_assertThisInitialized(_this));
+    _this.state = {
+      count: 0
+    };
+    return _this;
   }
-  _createClass(Header, [{
+  _createClass(Counter, [{
+    key: "handleAdd",
+    value: function handleAdd() {
+      console.log('Add');
+      this.setState({
+        count: this.state.count + 1
+      });
+      return this.state.count, console.log(this.state.count);
+    }
+  }, {
+    key: "handleMinus",
+    value: function handleMinus() {
+      console.log('Minus');
+
+      // this.setState({
+      //   count: this.state.count - 1,
+      // })
+
+      this.setState(function (prevState) {
+        return {
+          count: prevState.count - 1
+        };
+      });
+      console.log(this.state.count);
+      // console.log(this.count)
+    }
+  }, {
+    key: "handleReset",
+    value: function handleReset() {
+      console.log('Reset');
+      this.setState({
+        count: 0
+      });
+      console.log(this.state.count);
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Hello World!"));
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.state.count), /*#__PURE__*/React.createElement("button", {
+        onClick: this.handleAdd
+      }, "Plus"), /*#__PURE__*/React.createElement("button", {
+        onClick: this.handleMinus
+      }, "Minus"), /*#__PURE__*/React.createElement("button", {
+        onClick: this.handleReset
+      }, "Reset"));
     }
   }]);
-  return Header;
-}(React.Component);
-var Action = /*#__PURE__*/function (_React$Component2) {
-  _inherits(Action, _React$Component2);
-  var _super2 = _createSuper(Action);
-  function Action() {
-    _classCallCheck(this, Action);
-    return _super2.apply(this, arguments);
-  }
-  _createClass(Action, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", null, "What Should I Do?"));
-    }
-  }]);
-  return Action;
-}(React.Component);
-var Options = /*#__PURE__*/function (_React$Component3) {
-  _inherits(Options, _React$Component3);
-  var _super3 = _createSuper(Options);
-  function Options() {
-    _classCallCheck(this, Options);
-    return _super3.apply(this, arguments);
-  }
-  _createClass(Options, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", null, "What Should I Do?"));
-    }
-  }]);
-  return Options;
-}(React.Component);
-var Option = /*#__PURE__*/function (_React$Component4) {
-  _inherits(Option, _React$Component4);
-  var _super4 = _createSuper(Option);
-  function Option() {
-    _classCallCheck(this, Option);
-    return _super4.apply(this, arguments);
-  }
-  _createClass(Option, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, "Option Component"));
-    }
-  }]);
-  return Option;
-}(React.Component);
-var AddOption = /*#__PURE__*/function (_React$Component5) {
-  _inherits(AddOption, _React$Component5);
-  var _super5 = _createSuper(AddOption);
-  function AddOption() {
-    _classCallCheck(this, AddOption);
-    return _super5.apply(this, arguments);
-  }
-  _createClass(AddOption, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, "AddOption Component here");
-    }
-  }]);
-  return AddOption;
+  return Counter;
 }(React.Component);
 var DOMContainer = document.getElementById('app');
 var root = ReactDOM.createRoot(DOMContainer);
-root.render( /*#__PURE__*/React.createElement(Header, null));
+root.render( /*#__PURE__*/React.createElement(Counter, null));
