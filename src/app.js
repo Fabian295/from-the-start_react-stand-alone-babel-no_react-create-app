@@ -12,27 +12,62 @@ class BucketListApp extends React.Component {
       options: ['one', 'two', 'three', 'four'],
     };
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this)
+    this.handleRandomSelect = this.handleRandomSelect.bind(this)
+    this.handleAddOption = this.handleAddOption.bind(this)
   }
 
   handleDeleteOptions() {
-
     this.setState(() => {
      return {
       options: [],
       }
     })
   }
+
+  handleRandomSelect() {
+    const randomNum = Math.floor(Math.random() * this.state.options.length)
+    const randomOption = this.state.options[randomNum]
+    alert(randomOption);
+  }
+
+  handleAddOption(option) {
+    // console.log(option)
+        // console.log(prevState.options),
+        // console.log(this.state.options),
+        // console.log(option)
+
+        if(!option) {
+          return 'Enter a valid and at least one character long option!'
+        } else if (this.state.options.indexOf(option) > -1) {
+          // return console.log('This option already exist in the Options List!')
+          console.log('This option already exist in the Options List!')
+          return 'This option already exist in the Options List!'
+        }
+  // if(option) {
+      this.setState((prevState) => {
+        return {
+          options: prevState.options.concat(option)
+          // options: prevState.options + option
+        }
+      })
+    // }
+
+  }
+
   render() {
     return (
       <div>
         <Header title={title} subtitle={subtitle} />
-        <Action  hasOptions={this.state.options.length > 0} />
+        <Action 
+        handleRandomSelect={this.handleRandomSelect} 
+        hasOptions={this.state.options.length > 0} 
+        />
         <Options 
         options={this.state.options} 
         handleDeleteOptions = {this.handleDeleteOptions}
         />
         <Option />
-        <AddOption />
+        <AddOption handleAddOption={ this.handleAddOption }/>
       </div>
     )
   }
@@ -49,14 +84,14 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component {
-  handlePick() {
-    alert('handlePick')
-  }
+  // handlePick() {
+  //   alert('handlePick')
+  // }
   render() {
     return (
       <div>
         <button 
-        onClick={this.handlePick}
+        onClick={this.props.handleRandomSelect}
         disabled={ !this.props.hasOptions }
         >
           What Should I Do?
@@ -108,20 +143,36 @@ class Option extends React.Component {
 }
 
 class AddOption extends React.Component {
-  handleOnSubmit(e) {
+  constructor(props) {
+    super(props);
+    this.handleAddOption = this.handleAddOption.bind(this)
+
+    this.state = {
+      error: undefined
+    }
+  }
+
+  handleAddOption(e) {
     e.preventDefault()
 
     const option = e.target.elements.option.value.trim();
-   {option && alert(option)}
+  //  {option && this.props.handleAddOption(option)}
+    const error = this.props.handleAddOption(option)
+
+    this.setState(() => {
+      return { error }
+    })
 
    e.target.elements.option.value = '';
   } 
+
   render() {
     return (
       <div>
-       <form onSubmit={ this.handleOnSubmit }>
+        { this.state.error && <p>{this.state.error}</p> }
+       <form onSubmit={ this.handleAddOption }>
         <input type="text" name="option" />
-        <button>Submit</button>
+        <button>Add Option</button>
        </form>
       </div>
     )

@@ -26,6 +26,8 @@ var BucketListApp = /*#__PURE__*/function (_React$Component) {
       options: ['one', 'two', 'three', 'four']
     };
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_assertThisInitialized(_this));
+    _this.handleRandomSelect = _this.handleRandomSelect.bind(_assertThisInitialized(_this));
+    _this.handleAddOption = _this.handleAddOption.bind(_assertThisInitialized(_this));
     return _this;
   }
   _createClass(BucketListApp, [{
@@ -38,17 +40,51 @@ var BucketListApp = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "handleRandomSelect",
+    value: function handleRandomSelect() {
+      var randomNum = Math.floor(Math.random() * this.state.options.length);
+      var randomOption = this.state.options[randomNum];
+      alert(randomOption);
+    }
+  }, {
+    key: "handleAddOption",
+    value: function handleAddOption(option) {
+      // console.log(option)
+      // console.log(prevState.options),
+      // console.log(this.state.options),
+      // console.log(option)
+
+      if (!option) {
+        return 'Enter a valid and at least one character long option!';
+      } else if (this.state.options.indexOf(option) > -1) {
+        // return console.log('This option already exist in the Options List!')
+        console.log('This option already exist in the Options List!');
+        return 'This option already exist in the Options List!';
+      }
+      // if(option) {
+      this.setState(function (prevState) {
+        return {
+          options: prevState.options.concat(option)
+          // options: prevState.options + option
+        };
+      });
+      // }
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
         title: title,
         subtitle: subtitle
       }), /*#__PURE__*/React.createElement(Action, {
+        handleRandomSelect: this.handleRandomSelect,
         hasOptions: this.state.options.length > 0
       }), /*#__PURE__*/React.createElement(Options, {
         options: this.state.options,
         handleDeleteOptions: this.handleDeleteOptions
-      }), /*#__PURE__*/React.createElement(Option, null), /*#__PURE__*/React.createElement(AddOption, null));
+      }), /*#__PURE__*/React.createElement(Option, null), /*#__PURE__*/React.createElement(AddOption, {
+        handleAddOption: this.handleAddOption
+      }));
     }
   }]);
   return BucketListApp;
@@ -76,15 +112,14 @@ var Action = /*#__PURE__*/function (_React$Component3) {
     return _super3.apply(this, arguments);
   }
   _createClass(Action, [{
-    key: "handlePick",
-    value: function handlePick() {
-      alert('handlePick');
-    }
-  }, {
     key: "render",
-    value: function render() {
+    value:
+    // handlePick() {
+    //   alert('handlePick')
+    // }
+    function render() {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.handlePick,
+        onClick: this.props.handleRandomSelect,
         disabled: !this.props.hasOptions
       }, "What Should I Do?"));
     }
@@ -143,29 +178,39 @@ var Option = /*#__PURE__*/function (_React$Component5) {
 var AddOption = /*#__PURE__*/function (_React$Component6) {
   _inherits(AddOption, _React$Component6);
   var _super6 = _createSuper(AddOption);
-  function AddOption() {
+  function AddOption(props) {
+    var _this2;
     _classCallCheck(this, AddOption);
-    return _super6.apply(this, arguments);
+    _this2 = _super6.call(this, props);
+    _this2.handleAddOption = _this2.handleAddOption.bind(_assertThisInitialized(_this2));
+    _this2.state = {
+      error: undefined
+    };
+    return _this2;
   }
   _createClass(AddOption, [{
-    key: "handleOnSubmit",
-    value: function handleOnSubmit(e) {
+    key: "handleAddOption",
+    value: function handleAddOption(e) {
       e.preventDefault();
       var option = e.target.elements.option.value.trim();
-      {
-        option && alert(option);
-      }
+      //  {option && this.props.handleAddOption(option)}
+      var error = this.props.handleAddOption(option);
+      this.setState(function () {
+        return {
+          error: error
+        };
+      });
       e.target.elements.option.value = '';
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("form", {
-        onSubmit: this.handleOnSubmit
+      return /*#__PURE__*/React.createElement("div", null, this.state.error && /*#__PURE__*/React.createElement("p", null, this.state.error), /*#__PURE__*/React.createElement("form", {
+        onSubmit: this.handleAddOption
       }, /*#__PURE__*/React.createElement("input", {
         type: "text",
         name: "option"
-      }), /*#__PURE__*/React.createElement("button", null, "Submit")));
+      }), /*#__PURE__*/React.createElement("button", null, "Add Option")));
     }
   }]);
   return AddOption;
