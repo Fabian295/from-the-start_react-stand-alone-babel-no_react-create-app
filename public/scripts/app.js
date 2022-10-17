@@ -12,8 +12,9 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 console.log('new live!');
-var title = "The BucketList App!";
-var subtitle = "Create Options / tasks, personal or randomly!";
+
+// const title = "The BucketList App!";
+// const subtitle = "Create Options / tasks, personal or randomly!"
 // const options = ['one', 'two', 'three'];
 var BucketListApp = /*#__PURE__*/function (_React$Component) {
   _inherits(BucketListApp, _React$Component);
@@ -23,7 +24,7 @@ var BucketListApp = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, BucketListApp);
     _this = _super.call(this, props);
     _this.state = {
-      options: ['one', 'two', 'three', 'four']
+      options: props.options
     };
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_assertThisInitialized(_this));
     _this.handleRandomSelect = _this.handleRandomSelect.bind(_assertThisInitialized(_this));
@@ -59,7 +60,7 @@ var BucketListApp = /*#__PURE__*/function (_React$Component) {
       } else if (this.state.options.indexOf(option) > -1) {
         // return console.log('This option already exist in the Options List!')
         console.log('This option already exist in the Options List!');
-        return 'This option already exist in the Options List!';
+        return 'This option already exists in the Options List!';
       }
       // if(option) {
       this.setState(function (prevState) {
@@ -73,13 +74,17 @@ var BucketListApp = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
-        title: title,
-        subtitle: subtitle
-      }), /*#__PURE__*/React.createElement(Action, {
+      // const title = "The BucketList App!";
+      var subtitle = "Create Options / tasks, personal or randomly!";
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header
+      // title={title} 
+      // subtitle={subtitle} 
+      , null), /*#__PURE__*/React.createElement(Action, {
         handleRandomSelect: this.handleRandomSelect,
         hasOptions: this.state.options.length > 0
-      }), /*#__PURE__*/React.createElement(Options, {
+      }), /*#__PURE__*/React.createElement(Options
+      // title="Personal List"
+      , {
         options: this.state.options,
         handleDeleteOptions: this.handleDeleteOptions
       }), /*#__PURE__*/React.createElement(Option, null), /*#__PURE__*/React.createElement(AddOption, {
@@ -89,99 +94,118 @@ var BucketListApp = /*#__PURE__*/function (_React$Component) {
   }]);
   return BucketListApp;
 }(React.Component);
-var Header = /*#__PURE__*/function (_React$Component2) {
-  _inherits(Header, _React$Component2);
-  var _super2 = _createSuper(Header);
-  function Header() {
-    _classCallCheck(this, Header);
-    return _super2.apply(this, arguments);
-  }
-  _createClass(Header, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.props.title), /*#__PURE__*/React.createElement("h3", null, this.props.subtitle));
-    }
-  }]);
-  return Header;
-}(React.Component);
-var Action = /*#__PURE__*/function (_React$Component3) {
-  _inherits(Action, _React$Component3);
-  var _super3 = _createSuper(Action);
-  function Action() {
-    _classCallCheck(this, Action);
-    return _super3.apply(this, arguments);
-  }
-  _createClass(Action, [{
-    key: "render",
-    value:
-    // handlePick() {
-    //   alert('handlePick')
-    // }
-    function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.props.handleRandomSelect,
-        disabled: !this.props.hasOptions
-      }, "What Should I Do?"));
-    }
-  }]);
-  return Action;
-}(React.Component);
-var Options = /*#__PURE__*/function (_React$Component4) {
-  _inherits(Options, _React$Component4);
-  var _super4 = _createSuper(Options);
-  function Options() {
-    _classCallCheck(this, Options);
-    return _super4.apply(this, arguments);
-  }
-  _createClass(Options, [{
-    key: "render",
-    value:
-    // constructor(props) {
-    //   super(props);
-    //   this.handleRemoveAll = this.handleRemoveAll.bind(this);
-    // }
-    // handleRemoveAll() {
-    //   // alert('handleRemoveAll')
-    //   console.log(this.props.options[1], this.props.options)
-    //   // this.props.options = [];
-    // }
-    function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.props.handleDeleteOptions
-      }, "removeAll"), /*#__PURE__*/React.createElement("h3", null, " Options List Component "), /*#__PURE__*/React.createElement("ol", null, this.props.options.map(function (option, index) {
-        return /*#__PURE__*/React.createElement("li", {
-          key: index
-        }, /*#__PURE__*/React.createElement(Option, {
-          key: index,
-          optionText: option
-        }));
-      })));
-    }
-  }]);
-  return Options;
-}(React.Component);
-var Option = /*#__PURE__*/function (_React$Component5) {
-  _inherits(Option, _React$Component5);
-  var _super5 = _createSuper(Option);
-  function Option() {
-    _classCallCheck(this, Option);
-    return _super5.apply(this, arguments);
-  }
-  _createClass(Option, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, this.props.optionText));
-    }
-  }]);
-  return Option;
-}(React.Component);
-var AddOption = /*#__PURE__*/function (_React$Component6) {
-  _inherits(AddOption, _React$Component6);
-  var _super6 = _createSuper(AddOption);
+BucketListApp.defaultProps = {
+  options: []
+};
+
+// class Header extends React.Component {
+//   render() {
+//     return (
+//     <div>
+// <h1>{this.props.title}</h1>
+// <h3>{this.props.subtitle}</h3>
+//     </div>
+//     )
+//   }
+// }
+
+var Header = function Header(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, props.title), !props.subtitle ? '' : /*#__PURE__*/React.createElement("h3", null, props.subtitle));
+};
+Header.defaultProps = {
+  title: "The BucketList App!"
+};
+var Action = function Action(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    onClick: props.handleRandomSelect,
+    disabled: !props.hasOptions
+  }, "What Should I Do?"));
+};
+
+// class Action extends React.Component {
+// handlePick() {
+//   alert('handlePick')
+// }
+//   render() {
+//     return (
+//       <div>
+// <button 
+// onClick={this.props.handleRandomSelect}
+// disabled={ !this.props.hasOptions }
+// >
+//   What Should I Do?
+// </button>
+//       </div>
+//     )
+//   }
+// }
+
+// class Options extends React.Component {
+// constructor(props) {
+//   super(props);
+//   this.handleRemoveAll = this.handleRemoveAll.bind(this);
+// }
+// handleRemoveAll() {
+//   // alert('handleRemoveAll')
+//   console.log(this.props.options[1], this.props.options)
+//   // this.props.options = [];
+// }
+//   render() {
+//     return (
+//       <div>
+//         {/* <button onClick={this.handleRemoveAll} >removeAll</button> */}
+//         <button onClick={this.props.handleDeleteOptions} >removeAll</button>
+
+//         <h3> Options List Component </h3>
+//         <ol >
+//         {this.props.options.map((option, index) => {
+//           return <li key={index}>
+//                     <Option key={index} optionText={option}/>
+//                  </li>
+//                 }) }
+//         </ol>
+//       </div>
+//     )
+//   }
+// }
+
+// class Option extends React.Component {
+//   render() {
+//     return (
+//       <div>
+//         <p>
+//           { this.props.optionText }
+//         </p>
+//       </div>
+//     )
+//   }
+// }
+
+var Options = function Options(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    onClick: props.handleDeleteOptions
+  }, "Remove All"), /*#__PURE__*/React.createElement("h3", null, props.title), /*#__PURE__*/React.createElement("ol", null, props.options.map(function (option, index) {
+    return /*#__PURE__*/React.createElement("li", {
+      key: index
+    }, /*#__PURE__*/React.createElement(Option, {
+      key: index,
+      optionText: option
+    }));
+  })));
+};
+Options.defaultProps = {
+  title: "Personal List"
+};
+var Option = function Option(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, props.optionText));
+};
+var AddOption = /*#__PURE__*/function (_React$Component2) {
+  _inherits(AddOption, _React$Component2);
+  var _super2 = _createSuper(AddOption);
   function AddOption(props) {
     var _this2;
     _classCallCheck(this, AddOption);
-    _this2 = _super6.call(this, props);
+    _this2 = _super2.call(this, props);
     _this2.handleAddOption = _this2.handleAddOption.bind(_assertThisInitialized(_this2));
     _this2.state = {
       error: undefined
@@ -217,4 +241,6 @@ var AddOption = /*#__PURE__*/function (_React$Component6) {
 }(React.Component);
 var DOMContainer = document.getElementById('app');
 var root = ReactDOM.createRoot(DOMContainer);
-root.render( /*#__PURE__*/React.createElement(BucketListApp, null));
+root.render( /*#__PURE__*/React.createElement(BucketListApp, {
+  options: ['Go to Japan!', 'Buy a drone and join a race-track club!']
+}));

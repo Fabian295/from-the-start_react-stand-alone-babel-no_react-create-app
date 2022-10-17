@@ -1,15 +1,15 @@
 console.log('new live!')
 
 
-const title = "The BucketList App!";
-const subtitle = "Create Options / tasks, personal or randomly!"
+// const title = "The BucketList App!";
+// const subtitle = "Create Options / tasks, personal or randomly!"
 // const options = ['one', 'two', 'three'];
 
 class BucketListApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: ['one', 'two', 'three', 'four'],
+      options: props.options,
     };
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this)
     this.handleRandomSelect = this.handleRandomSelect.bind(this)
@@ -32,17 +32,17 @@ class BucketListApp extends React.Component {
 
   handleAddOption(option) {
     // console.log(option)
-        // console.log(prevState.options),
-        // console.log(this.state.options),
-        // console.log(option)
+    // console.log(prevState.options),
+    // console.log(this.state.options),
+    // console.log(option)
 
-        if(!option) {
-          return 'Enter a valid and at least one character long option!'
-        } else if (this.state.options.indexOf(option) > -1) {
-          // return console.log('This option already exist in the Options List!')
-          console.log('This option already exist in the Options List!')
-          return 'This option already exist in the Options List!'
-        }
+    if(!option) {
+      return 'Enter a valid and at least one character long option!'
+    } else if (this.state.options.indexOf(option) > -1) {
+      // return console.log('This option already exist in the Options List!')
+      console.log('This option already exist in the Options List!')
+      return 'This option already exists in the Options List!'
+    }
   // if(option) {
       this.setState((prevState) => {
         return {
@@ -55,14 +55,22 @@ class BucketListApp extends React.Component {
   }
 
   render() {
+
+    // const title = "The BucketList App!";
+    const subtitle = "Create Options / tasks, personal or randomly!"
+
     return (
       <div>
-        <Header title={title} subtitle={subtitle} />
+        <Header 
+        // title={title} 
+        // subtitle={subtitle} 
+        />
         <Action 
         handleRandomSelect={this.handleRandomSelect} 
         hasOptions={this.state.options.length > 0} 
         />
         <Options 
+        // title="Personal List"
         options={this.state.options} 
         handleDeleteOptions = {this.handleDeleteOptions}
         />
@@ -72,36 +80,69 @@ class BucketListApp extends React.Component {
     )
   }
 }
-class Header extends React.Component {
-  render() {
-    return (
-    <div>
-      <h1>{this.props.title}</h1>
-      <h3>{this.props.subtitle}</h3>
-    </div>
-    )
-  }
+
+BucketListApp.defaultProps = {
+  options: []
 }
 
-class Action extends React.Component {
+// class Header extends React.Component {
+//   render() {
+//     return (
+//     <div>
+      // <h1>{this.props.title}</h1>
+      // <h3>{this.props.subtitle}</h3>
+//     </div>
+//     )
+//   }
+// }
+
+const Header = (props) => {
+
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      { !props.subtitle ? '' : <h3>{props.subtitle}</h3> }
+    </div>
+  )
+}
+
+Header.defaultProps = {
+  title: "The BucketList App!"
+}
+
+const Action = (props) => {
+
+  return (
+    <div>
+        <button 
+          onClick={props.handleRandomSelect}
+          disabled={ !props.hasOptions }
+          >
+              What Should I Do?
+        </button>
+    </div>
+  )
+}
+
+// class Action extends React.Component {
   // handlePick() {
   //   alert('handlePick')
   // }
-  render() {
-    return (
-      <div>
-        <button 
-        onClick={this.props.handleRandomSelect}
-        disabled={ !this.props.hasOptions }
-        >
-          What Should I Do?
-        </button>
-      </div>
-    )
-  }
-}
+//   render() {
+//     return (
+//       <div>
+        // <button 
+        // onClick={this.props.handleRandomSelect}
+        // disabled={ !this.props.hasOptions }
+        // >
+        //   What Should I Do?
+        // </button>
+//       </div>
+//     )
+//   }
+// }
 
-class Options extends React.Component {
+// class Options extends React.Component {
   // constructor(props) {
   //   super(props);
   //   this.handleRemoveAll = this.handleRemoveAll.bind(this);
@@ -111,35 +152,68 @@ class Options extends React.Component {
   //   console.log(this.props.options[1], this.props.options)
   //   // this.props.options = [];
   // }
-  render() {
-    return (
-      <div>
-        {/* <button onClick={this.handleRemoveAll} >removeAll</button> */}
-        <button onClick={this.props.handleDeleteOptions} >removeAll</button>
+//   render() {
+//     return (
+//       <div>
+//         {/* <button onClick={this.handleRemoveAll} >removeAll</button> */}
+//         <button onClick={this.props.handleDeleteOptions} >removeAll</button>
          
-        <h3> Options List Component </h3>
-        <ol >
-        {this.props.options.map((option, index) => {
+//         <h3> Options List Component </h3>
+//         <ol >
+//         {this.props.options.map((option, index) => {
+//           return <li key={index}>
+//                     <Option key={index} optionText={option}/>
+//                  </li>
+//                 }) }
+//         </ol>
+//       </div>
+//     )
+//   }
+// }
+
+// class Option extends React.Component {
+//   render() {
+//     return (
+//       <div>
+//         <p>
+//           { this.props.optionText }
+//         </p>
+//       </div>
+//     )
+//   }
+// }
+
+const Options = (props) => {
+
+  return (
+    <div>
+      <button onClick={props.handleDeleteOptions} >Remove All</button>
+
+      <h3>{ props.title }</h3>
+      <ol>
+        { props.options.map((option, index) => {
           return <li key={index}>
-                    <Option key={index} optionText={option}/>
-                 </li>
-                }) }
-        </ol>
-      </div>
-    )
-  }
+            <Option key={index} optionText={option}  />
+          </li>
+        }) }
+      </ol>
+    </div>
+  )
 }
 
-class Option extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>
-          { this.props.optionText }
-        </p>
-      </div>
-    )
-  }
+Options.defaultProps = {
+  title: "Personal List"
+}
+
+const Option = (props) => {
+
+  return (
+    <div>
+      <p>
+        { props.optionText }
+      </p>
+    </div>
+  )
 }
 
 class AddOption extends React.Component {
@@ -181,4 +255,4 @@ class AddOption extends React.Component {
 
 const DOMContainer = document.getElementById('app');
 const root = ReactDOM.createRoot(DOMContainer);
-root.render(<BucketListApp />);
+root.render(<BucketListApp options={['Go to Japan!', 'Buy a drone and join a race-track club!']} />);
