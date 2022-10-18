@@ -12,6 +12,7 @@ class BucketListApp extends React.Component {
       options: props.options,
     };
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this)
+    this.handleDeleteOption = this.handleDeleteOption.bind(this)
     this.handleRandomSelect = this.handleRandomSelect.bind(this)
     this.handleAddOption = this.handleAddOption.bind(this)
   }
@@ -22,6 +23,30 @@ class BucketListApp extends React.Component {
       options: [],
       }
     })
+  }
+
+  handleDeleteOption(optionToDelete) {
+    // e.preventDefault()
+    // let num = this.state.options.length;
+    // option = e.target.elements.option.value;
+    const delTarget = this.state.options.indexOf(optionToDelete) > -1;
+    // let opt = e.target;
+    let tar ;
+    console.log(delTarget, optionToDelete)
+    if(delTarget) {
+
+     tar = this.state.options.indexOf(optionToDelete)
+      console.log('delete option:', optionToDelete, tar)
+      // this.state.options.splice(tar, 1)
+      this.setState((prevState) => {
+      //  return this.state.options.splice(tar, 1)
+          return {
+            options: prevState.options.filter((option) => {
+              return optionToDelete !== option
+            })
+          }
+      })
+    }
   }
 
   handleRandomSelect() {
@@ -73,9 +98,13 @@ class BucketListApp extends React.Component {
         // title="Personal List"
         options={this.state.options} 
         handleDeleteOptions = {this.handleDeleteOptions}
+        handleDeleteOption = {this.handleDeleteOption}
+        // handleDeleteOption = {this.handleDeleteOption}
         />
-        <Option />
-        <AddOption handleAddOption={ this.handleAddOption }/>
+        {/* <Option /> */}
+        <AddOption 
+        handleAddOption={ this.handleAddOption }
+        />
       </div>
     )
   }
@@ -188,12 +217,17 @@ const Options = (props) => {
   return (
     <div>
       <button onClick={props.handleDeleteOptions} >Remove All</button>
+      {/* <button onClick={props.handleDeleteOption} >Delete an Option</button> */}
 
       <h3>{ props.title }</h3>
       <ol>
         { props.options.map((option, index) => {
           return <li key={index}>
-            <Option key={index} optionText={option}  />
+            <Option 
+            key={index}
+            optionText={option}  
+            handleDeleteOption={ props.handleDeleteOption}
+            />
           </li>
         }) }
       </ol>
@@ -211,7 +245,13 @@ const Option = (props) => {
     <div>
       <p>
         { props.optionText }
+      <button onClick={(e) => { 
+        props.handleDeleteOption( props.optionText )
+        }} >
+        X
+      </button>
       </p>
+
     </div>
   )
 }

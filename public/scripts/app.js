@@ -27,6 +27,7 @@ var BucketListApp = /*#__PURE__*/function (_React$Component) {
       options: props.options
     };
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_assertThisInitialized(_this));
+    _this.handleDeleteOption = _this.handleDeleteOption.bind(_assertThisInitialized(_this));
     _this.handleRandomSelect = _this.handleRandomSelect.bind(_assertThisInitialized(_this));
     _this.handleAddOption = _this.handleAddOption.bind(_assertThisInitialized(_this));
     return _this;
@@ -39,6 +40,30 @@ var BucketListApp = /*#__PURE__*/function (_React$Component) {
           options: []
         };
       });
+    }
+  }, {
+    key: "handleDeleteOption",
+    value: function handleDeleteOption(optionToDelete) {
+      // e.preventDefault()
+      // let num = this.state.options.length;
+      // option = e.target.elements.option.value;
+      var delTarget = this.state.options.indexOf(optionToDelete) > -1;
+      // let opt = e.target;
+      var tar;
+      console.log(delTarget, optionToDelete);
+      if (delTarget) {
+        tar = this.state.options.indexOf(optionToDelete);
+        console.log('delete option:', optionToDelete, tar);
+        // this.state.options.splice(tar, 1)
+        this.setState(function (prevState) {
+          //  return this.state.options.splice(tar, 1)
+          return {
+            options: prevState.options.filter(function (option) {
+              return optionToDelete !== option;
+            })
+          };
+        });
+      }
     }
   }, {
     key: "handleRandomSelect",
@@ -86,8 +111,10 @@ var BucketListApp = /*#__PURE__*/function (_React$Component) {
       // title="Personal List"
       , {
         options: this.state.options,
-        handleDeleteOptions: this.handleDeleteOptions
-      }), /*#__PURE__*/React.createElement(Option, null), /*#__PURE__*/React.createElement(AddOption, {
+        handleDeleteOptions: this.handleDeleteOptions,
+        handleDeleteOption: this.handleDeleteOption
+        // handleDeleteOption = {this.handleDeleteOption}
+      }), /*#__PURE__*/React.createElement(AddOption, {
         handleAddOption: this.handleAddOption
       }));
     }
@@ -189,7 +216,8 @@ var Options = function Options(props) {
       key: index
     }, /*#__PURE__*/React.createElement(Option, {
       key: index,
-      optionText: option
+      optionText: option,
+      handleDeleteOption: props.handleDeleteOption
     }));
   })));
 };
@@ -197,7 +225,11 @@ Options.defaultProps = {
   title: "Personal List"
 };
 var Option = function Option(props) {
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, props.optionText));
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, props.optionText, /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick(e) {
+      props.handleDeleteOption(props.optionText);
+    }
+  }, "X")));
 };
 var AddOption = /*#__PURE__*/function (_React$Component2) {
   _inherits(AddOption, _React$Component2);
