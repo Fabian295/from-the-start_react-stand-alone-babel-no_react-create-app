@@ -1,5 +1,7 @@
 console.log('new live!')
 
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 
 // const title = "The BucketList App!";
 // const subtitle = "Create Options / tasks, personal or randomly!"
@@ -9,7 +11,7 @@ class BucketListApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: props.options,
+      options: props.options
     };
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this)
     this.handleDeleteOption = this.handleDeleteOption.bind(this)
@@ -17,36 +19,63 @@ class BucketListApp extends React.Component {
     this.handleAddOption = this.handleAddOption.bind(this)
   }
 
-  handleDeleteOptions() {
-    this.setState(() => {
-     return {
-      options: [],
+  componentDidMount() {        
+    // console.log('componentDidMount ran')
+    try {
+      const json = localStorage.getItem('options');
+      const options = JSON.parse(json);
+      if(options) {
+        this.setState(() => ({ options }));
       }
-    })
+    } catch (error) {
+
+      // return console.log(error.message);
+    }
+  }
+
+  componentDidUpdate(prevState, prevProps) {         // Can take 3 args: prevState, prevProps and snapShot 
+    if((prevState.options.length - 1 ) !== this.state.options.length) {
+      const json = JSON.stringify(this.state.options);
+      localStorage.setItem('options', json);
+      console.log('componentDidUpdate ran')
+      console.log(prevState.options.length, this.state.options.length)
+      // console.log(localStorage.getItem('options'));
+    }
+
+  }
+
+  handleDeleteOptions() {
+    this.setState(() => ({  options: this.props.options  }))
   }
 
   handleDeleteOption(optionToDelete) {
     // e.preventDefault()
     // let num = this.state.options.length;
     // option = e.target.elements.option.value;
-    const delTarget = this.state.options.indexOf(optionToDelete) > -1;
+    // const delTarget = this.state.options.indexOf(optionToDelete) > -1;
     // let opt = e.target;
-    let tar ;
-    console.log(delTarget, optionToDelete)
-    if(delTarget) {
+    // let target ;
+    console.log(
+      // delTarget,
+       optionToDelete)
+    // if(delTarget) {
 
-     tar = this.state.options.indexOf(optionToDelete)
-      console.log('delete option:', optionToDelete, tar)
-      // this.state.options.splice(tar, 1)
+    //  target = this.state.options.indexOf(optionToDelete)
+      console.log('delete option:', optionToDelete)
+      // this.state.options.splice(target, 1)
       this.setState((prevState) => {
-      //  return this.state.options.splice(tar, 1)
+      //  return this.state.options.splice(target, 1)
           return {
             options: prevState.options.filter((option) => {
               return optionToDelete !== option
             })
           }
+          // if(prevState.options.length !== this.state.options.length) {
+          //   const json = JSON.stringify(this.state.options);
+          //   localStorage.setItem('options', json);
+          // }
       })
-    }
+    // }
   }
 
   handleRandomSelect() {
@@ -68,14 +97,15 @@ class BucketListApp extends React.Component {
       console.log('This option already exist in the Options List!')
       return 'This option already exists in the Options List!'
     }
-  // if(option) {
-      this.setState((prevState) => {
-        return {
-          options: prevState.options.concat(option)
-          // options: prevState.options + option
-        }
-      })
-    // }
+  if(option) {
+      // this.setState((prevState) => {
+      //   return {
+      //     options: prevState.options.concat(option)
+
+      //   }
+      // })
+      this.setState((prevState) => ({ options: prevState.options.concat(option)}))
+    }
 
   }
 
@@ -244,16 +274,20 @@ const Option = (props) => {
   return (
     <div>
       <p>
-        { props.optionText }
+        { props.optionText } 
       <button onClick={(e) => { 
         props.handleDeleteOption( props.optionText )
-        }} >
+        }} > 
         X
       </button>
       </p>
 
     </div>
   )
+}
+
+Option.defaultProps = {
+
 }
 
 class AddOption extends React.Component {
@@ -295,4 +329,6 @@ class AddOption extends React.Component {
 
 const DOMContainer = document.getElementById('app');
 const root = ReactDOM.createRoot(DOMContainer);
-root.render(<BucketListApp options={['Go to Japan!', 'Buy a drone and join a race-track club!']} />);
+root.render(<BucketListApp options={[ 'Buy a drone and join a race-track club!']} />);
+
+// console.log('Running from app.js in src folder!');
