@@ -14,5 +14,9 @@ module.exports = {
       test: /\.js$/,
       exclude: /node_modules/
     }]
-  }
+  },
+  devtool: 'source-map',
+  devServer: {
+    open: true,
+  },
 }
