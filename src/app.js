@@ -330,6 +330,6 @@ import BucketListApp from './components/BucketListApp';
 
 const DOMContainer = document.getElementById('app');
 const root = ReactDOM.createRoot(DOMContainer);
-root.render(<BucketListApp options={[ 'Buy a drone and join a race-track club!']} />);
+root.render(<BucketListApp />);
 
 // console.log('Running from app.js in src folder!');

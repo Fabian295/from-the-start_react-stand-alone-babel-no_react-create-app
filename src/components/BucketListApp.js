@@ -9,16 +9,20 @@ export default class BucketListApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: this.props.options
+      options: props.options
     };
-    this.handleDeleteOptions = this.handleDeleteOptions.bind(this)
-    this.handleDeleteOption = this.handleDeleteOption.bind(this)
-    this.handleRandomSelect = this.handleRandomSelect.bind(this)
-    this.handleAddOption = this.handleAddOption.bind(this)
+  //   this.handleDeleteOptions = this.handleDeleteOptions.bind(this)
+  //   this.handleDeleteOption = this.handleDeleteOption.bind(this)
+  //   this.handleRandomSelect = this.handleRandomSelect.bind(this)
+  //   this.handleAddOption = this.handleAddOption.bind(this)
+  // }
   }
 
   componentDidMount() {        
     // console.log('componentDidMount ran')
+    // this.state = {
+    //   options: props.options
+    // }
     try {
       const json = localStorage.getItem('options');
       const options = JSON.parse(json);
@@ -37,17 +41,16 @@ export default class BucketListApp extends React.Component {
       localStorage.setItem('options', json);
       console.log('componentDidUpdate ran')
       console.log(prevState.options.length, this.state.options.length)
-      // console.log(yo)
       console.log(localStorage.getItem('options'));
     }
-
+    
   }
-
-  handleDeleteOptions() {
+  
+  handleDeleteOptions = () => {
     this.setState(() => ({  options: this.props.options  }))
   }
-
-  handleDeleteOption(optionToDelete) {
+  
+  handleDeleteOption = (optionToDelete) =>  {
     // e.preventDefault()
     // let num = this.state.options.length;
     // option = e.target.elements.option.value;
@@ -56,11 +59,12 @@ export default class BucketListApp extends React.Component {
     // let target ;
     console.log(
       // delTarget,
-       optionToDelete)
-    // if(delTarget) {
-
-    //  target = this.state.options.indexOf(optionToDelete)
-      console.log('delete option:', optionToDelete)
+      optionToDelete)
+      // if(delTarget) {
+        
+        //  target = this.state.options.indexOf(optionToDelete)
+        console.log('delete option:', optionToDelete)
+        // console.log(yo)
       // this.state.options.splice(target, 1)
       this.setState((prevState) => {
       //  return this.state.options.splice(target, 1)
@@ -77,13 +81,13 @@ export default class BucketListApp extends React.Component {
     // }
   }
 
-  handleRandomSelect() {
+  handleRandomSelect = () => {
     const randomNum = Math.floor(Math.random() * this.state.options.length)
     const randomOption = this.state.options[randomNum]
     alert(randomOption);
   }
 
-  handleAddOption(option) {
+  handleAddOption = (option) => {
     // console.log(option)
     // console.log(prevState.options),
     // console.log(this.state.options),
@@ -140,5 +144,5 @@ export default class BucketListApp extends React.Component {
 }
 
 BucketListApp.defaultProps = {
-  options: []
+  options: [ 'Buy a drone and join a race-track club!' ]
 }
