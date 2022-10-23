@@ -3,6 +3,7 @@ console.log('new live!')
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import BucketListApp from './components/BucketListApp';
+import './styles/styles.scss';
 
 // const title = "The BucketList App!";
 // const subtitle = "Create Options / tasks, personal or randomly!"
